@@ -28,6 +28,9 @@ public class User implements Delayed {
     @Column(name = "DEACTIVATION_TIME")
     private ZonedDateTime deactivationTime;
 
+    @Column(name = "IS_ACTIVE")
+    private boolean active;
+
 
     @Override
     public long getDelay(TimeUnit unit) {
