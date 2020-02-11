@@ -6,12 +6,15 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 @Entity
+@Table(name = "USERS")
 @Data
 @EqualsAndHashCode
 @ToString
-public class User {
+public class User implements Delayed {
 
     @Id
     @Column(name = "ID")
@@ -24,4 +27,19 @@ public class User {
 
     @Column(name = "DEACTIVATION_TIME")
     private ZonedDateTime deactivationTime;
+
+
+    @Override
+    public long getDelay(TimeUnit unit) {
+        long diff = deactivationTime.toInstant().toEpochMilli() - System.currentTimeMillis();
+        return unit.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public int compareTo(Delayed user) {
+        if (!(user instanceof User)) {
+            throw new RuntimeException("Unexpected delayed object:" + user);
+        }
+        return this.deactivationTime.compareTo(((User) user).deactivationTime);
+    }
 }
