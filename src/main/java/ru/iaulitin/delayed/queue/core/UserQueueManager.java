@@ -21,14 +21,14 @@ public class UserQueueManager {
 
 
     private final BlockingQueue<User> queue = new PriorityBlockingQueue<>();
-    ExecutorService executorService = Executors.newFixedThreadPool(10);
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
 
 
     public void handle(User user) {
         Runnable producingTask = new UserQueueProducingTask(queue, user);
-        Runnable consumingTask = new UserQueueConsumingTask(queue, userDeactivationService);
-
         executorService.submit(producingTask);
+
+        Runnable consumingTask = new UserQueueConsumingTask(queue, userDeactivationService);
         executorService.submit(consumingTask);
     }
 }
