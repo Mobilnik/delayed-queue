@@ -24,7 +24,8 @@ public class UserQueueManager {
 
 
     public void handle(User user) {
-        Runnable producingTask = new UserQueueProducingTask(queue, user, (aUser) -> log.info("Put a user {} to queue", aUser));
+        Runnable producingTask = new QueueProducingTask<>(
+                queue, user, (aUser) -> log.info("Put a user {} to queue", aUser));
         executorService.submit(producingTask);
 
         Runnable consumingTask = new UserQueueConsumingTask(queue, userDeactivationService);
