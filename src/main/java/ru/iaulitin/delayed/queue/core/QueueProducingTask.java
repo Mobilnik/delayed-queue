@@ -13,13 +13,13 @@ public class QueueProducingTask<T> implements Runnable {
 
     private final BlockingQueue<T> queue;
     private final T queueObject;
-    private final Action<T> action;
+    private final Action<T> actionAfterPut;
 
 
     public void run() {
         try {
             queue.put(queueObject);
-            action.execute(queueObject);
+            actionAfterPut.execute(queueObject);
         } catch (InterruptedException e) {
             log.error("Caught an interrupted exception: {}", e);
         }
