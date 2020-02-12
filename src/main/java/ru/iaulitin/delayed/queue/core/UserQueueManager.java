@@ -17,15 +17,14 @@ import java.util.concurrent.PriorityBlockingQueue;
 @RequiredArgsConstructor
 public class UserQueueManager {
 
+    private final BlockingQueue<User> queue = new PriorityBlockingQueue<>();
+    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
+
     private final UserDeactivationService userDeactivationService;
 
 
-    private final BlockingQueue<User> queue = new PriorityBlockingQueue<>();
-    ExecutorService executorService = Executors.newFixedThreadPool(2);
-
-
     public void handle(User user) {
-        Runnable producingTask = new UserQueueProducingTask(queue, user);
+        Runnable producingTask = new UserQueueProducingTask(queue, user, (aUser) -> log.info("Put a user {} to queue", aUser));
         executorService.submit(producingTask);
 
         Runnable consumingTask = new UserQueueConsumingTask(queue, userDeactivationService);

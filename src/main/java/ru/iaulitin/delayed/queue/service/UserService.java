@@ -30,7 +30,6 @@ public class UserService {
         user.setActive(true);
 
         userDao.save(user);
-        log.info("Saved : {}", user);
 
         userQueueManager.handle(user);
     }

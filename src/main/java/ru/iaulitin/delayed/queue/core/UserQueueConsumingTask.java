@@ -16,6 +16,10 @@ public class UserQueueConsumingTask implements Runnable {
     private final UserDeactivationService userDeactivationService;
 
 
+    //todo скрыть под капот все, кроме бизнес-логики
+    //todo Прокидывать параметром конструктора consumer
+    // например, здесь userDeactivationService -> userDeactivationService.deactivate(user);
+    // а как юзера достать, если он из очереди приходит?
     @Override
     public void run() {
         try {
@@ -26,7 +30,9 @@ public class UserQueueConsumingTask implements Runnable {
                 Thread.sleep(sleepMillis);
             }
 
+            //todo вот тут consumer -> consume ???
             userDeactivationService.deactivate(user);
+
             log.info("Deactivated a user {}", user);
         } catch (InterruptedException e) {
             log.error("Caught an interrupted exception: {}", e);
