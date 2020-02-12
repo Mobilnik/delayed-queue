@@ -24,11 +24,10 @@ public class UserQueueManager {
 
 
     public void handle(User user) {
-        Runnable producingTask = new QueueProducingTask<>(
-                queue, user, (aUser) -> log.info("Put a user {} to queue", aUser));
+        Runnable producingTask = new QueueProducingTask<>(queue, user, new UserProducingTaskExecutable());
         executorService.submit(producingTask);
 
-        Runnable consumingTask = new UserQueueConsumingTask(queue, userDeactivationService);
+        Runnable consumingTask = new QueueConsumingTask<>(queue, new UserConsumingTaskExecutable(userDeactivationService));
         executorService.submit(consumingTask);
     }
 }

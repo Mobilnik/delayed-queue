@@ -2,24 +2,26 @@ package ru.iaulitin.delayed.queue.core;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.iaulitin.delayed.queue.utils.Action;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Delayed;
 
 @Slf4j
 @RequiredArgsConstructor
-public class QueueProducingTask<T> implements Runnable {
+public class QueueProducingTask<T extends Delayed, S extends AbstractTaskExecutable<T>> implements Runnable {
 
 
     private final BlockingQueue<T> queue;
     private final T queueObject;
-    private final Action<T> actionAfterPut;
+    private final S producingTaskExecutable;
 
 
     public void run() {
         try {
             queue.put(queueObject);
-            actionAfterPut.execute(queueObject);
+
+            producingTaskExecutable.setQueueObject(queueObject);
+            producingTaskExecutable.execute();
         } catch (InterruptedException e) {
             log.error("Caught an interrupted exception: {}", e);
         }
