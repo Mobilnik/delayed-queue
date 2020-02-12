@@ -1,8 +1,9 @@
-package ru.iaulitin.delayed.queue.core;
+package ru.iaulitin.delayed.queue.processor.core.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.iaulitin.delayed.queue.entity.User;
+import ru.iaulitin.delayed.queue.processor.core.AbstractTaskExecutable;
 import ru.iaulitin.delayed.queue.service.UserDeactivationService;
 
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package ru.iaulitin.delayed.queue.core;
+package ru.iaulitin.delayed.queue.processor.core;
 
 
 import java.util.concurrent.Delayed;

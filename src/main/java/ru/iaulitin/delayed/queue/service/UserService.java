@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.iaulitin.delayed.queue.core.UserQueueManager;
+import ru.iaulitin.delayed.queue.processor.core.user.UserQueueManager;
 import ru.iaulitin.delayed.queue.dao.UserDao;
 import ru.iaulitin.delayed.queue.entity.User;
 

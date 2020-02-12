@@ -1,9 +1,12 @@
-package ru.iaulitin.delayed.queue.core;
+package ru.iaulitin.delayed.queue.processor.core.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.iaulitin.delayed.queue.entity.User;
+import ru.iaulitin.delayed.queue.processor.core.AbstractQueueManager;
+import ru.iaulitin.delayed.queue.processor.core.QueueConsumingTask;
+import ru.iaulitin.delayed.queue.processor.core.QueueProducingTask;
 import ru.iaulitin.delayed.queue.service.UserDeactivationService;
 
 import java.util.concurrent.BlockingQueue;
