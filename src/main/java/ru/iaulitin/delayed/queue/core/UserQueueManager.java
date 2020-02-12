@@ -7,27 +7,26 @@ import ru.iaulitin.delayed.queue.entity.User;
 import ru.iaulitin.delayed.queue.service.UserDeactivationService;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
 
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class UserQueueManager {
+public class UserQueueManager extends AbstractQueueManager<User, UserProducingTaskExecutable, UserConsumingTaskExecutable> {
 
     private final BlockingQueue<User> queue = new PriorityBlockingQueue<>();
-    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
-
     private final UserDeactivationService userDeactivationService;
 
 
-    public void handle(User user) {
-        Runnable producingTask = new QueueProducingTask<>(queue, user, new UserProducingTaskExecutable());
-        executorService.submit(producingTask);
+    @Override
+    protected QueueProducingTask<User,UserProducingTaskExecutable> getProducingTask(User user) {
+        return new QueueProducingTask<>(queue, user, new UserProducingTaskExecutable());
+    }
 
-        Runnable consumingTask = new QueueConsumingTask<>(queue, new UserConsumingTaskExecutable(userDeactivationService));
-        executorService.submit(consumingTask);
+
+    @Override
+    protected QueueConsumingTask<User,UserConsumingTaskExecutable> getConsumingTask(User user) {
+        return new QueueConsumingTask<>(queue, new UserConsumingTaskExecutable(userDeactivationService));
     }
 }
