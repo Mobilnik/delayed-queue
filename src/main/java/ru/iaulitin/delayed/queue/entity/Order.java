@@ -19,7 +19,7 @@ public class Order extends DelayedTask {
 
     @Id
     @Column(name = "ID")
-    @SequenceGenerator(name = "order_id_gen", sequenceName = "order_id_seq")
+    @SequenceGenerator(name = "order_id_gen", sequenceName = "order_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_gen")
     private long id;
 

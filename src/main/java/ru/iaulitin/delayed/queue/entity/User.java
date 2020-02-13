@@ -19,7 +19,7 @@ public class User extends DelayedTask {
 
     @Id
     @Column(name = "ID")
-    @SequenceGenerator(name = "user_id_gen", sequenceName = "user_id_seq")
+    @SequenceGenerator(name = "user_id_gen", sequenceName = "user_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_gen")
     private long id;
 
