@@ -19,8 +19,8 @@ public class Order extends DelayedTask {
 
     @Id
     @Column(name = "ID")
-    @SequenceGenerator(name = "id_generator", sequenceName = "order_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+    @SequenceGenerator(name = "order_id_gen", sequenceName = "order_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_gen")
     private long id;
 
     @Column(name = "DEACTIVATION_TIME")
