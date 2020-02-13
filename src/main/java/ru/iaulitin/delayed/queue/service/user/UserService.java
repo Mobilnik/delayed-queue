@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class UserService {
 
-    private static AtomicInteger usersCount = new AtomicInteger(0);
+    private static final AtomicInteger usersCount = new AtomicInteger(0);
 
 
     private final UserDao userDao;

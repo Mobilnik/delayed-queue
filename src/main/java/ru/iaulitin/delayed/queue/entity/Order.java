@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @Entity
 @Table(name = "ORDERS")
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 public class Order extends DelayedTask {
 

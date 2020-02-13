@@ -11,19 +11,19 @@ public abstract class DelayedTask implements Delayed {
     private ITaskExecutable consumingTaskExecutable;
 
 
-    public ITaskExecutable getProducingTaskExecutable() {
+    ITaskExecutable getProducingTaskExecutable() {
         return producingTaskExecutable;
     }
 
-    public void setProducingTaskExecutable(ITaskExecutable producingTaskExecutable) {
+    void setProducingTaskExecutable(ITaskExecutable producingTaskExecutable) {
         this.producingTaskExecutable = producingTaskExecutable;
     }
 
-    public ITaskExecutable getConsumingTaskExecutable() {
+    ITaskExecutable getConsumingTaskExecutable() {
         return consumingTaskExecutable;
     }
 
-    public void setConsumingTaskExecutable(ITaskExecutable consumingTaskExecutable) {
+    void setConsumingTaskExecutable(ITaskExecutable consumingTaskExecutable) {
         this.consumingTaskExecutable = consumingTaskExecutable;
     }
 }

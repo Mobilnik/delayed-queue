@@ -29,7 +29,6 @@ public class ZonedDateTimeAttributeConverter implements AttributeConverter<Zoned
         }
 
         LocalDateTime withoutTimezone = sqlTimestamp.toLocalDateTime();
-        ZonedDateTime withTimezone = withoutTimezone.atZone(ZoneId.of("UTC"));
-        return withTimezone;
+        return withoutTimezone.atZone(ZoneId.of("UTC"));
     }
 }
