@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.iaulitin.delayed.queue.dao.OrderDao;
 import ru.iaulitin.delayed.queue.entity.Order;
-import ru.iaulitin.delayed.queue.processor.core.impl.order.OrderQueueManager;
+import ru.iaulitin.delayed.queue.core.impl.order.OrderQueueManager;
 
 import java.time.ZonedDateTime;
 

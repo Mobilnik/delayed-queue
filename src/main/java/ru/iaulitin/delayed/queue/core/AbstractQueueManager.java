@@ -1,7 +1,7 @@
-package ru.iaulitin.delayed.queue.processor.core;
+package ru.iaulitin.delayed.queue.core;
 
 
-import ru.iaulitin.delayed.queue.processor.core.executables.ITaskExecutable;
+import ru.iaulitin.delayed.queue.core.executables.ITaskExecutable;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;

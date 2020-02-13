@@ -1,13 +1,13 @@
-package ru.iaulitin.delayed.queue.processor.core.impl.order;
+package ru.iaulitin.delayed.queue.core.impl.order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.iaulitin.delayed.queue.entity.Order;
-import ru.iaulitin.delayed.queue.processor.core.AbstractQueueManager;
-import ru.iaulitin.delayed.queue.processor.core.executables.ITaskExecutable;
-import ru.iaulitin.delayed.queue.processor.core.impl.order.executables.OrderConsumingTaskExecutable;
-import ru.iaulitin.delayed.queue.processor.core.impl.order.executables.OrderProducingTaskExecutable;
+import ru.iaulitin.delayed.queue.core.AbstractQueueManager;
+import ru.iaulitin.delayed.queue.core.executables.ITaskExecutable;
+import ru.iaulitin.delayed.queue.core.impl.order.executables.OrderConsumingTaskExecutable;
+import ru.iaulitin.delayed.queue.core.impl.order.executables.OrderProducingTaskExecutable;
 import ru.iaulitin.delayed.queue.service.order.OrderDeactivationService;
 
 

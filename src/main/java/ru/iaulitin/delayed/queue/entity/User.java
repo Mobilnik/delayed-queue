@@ -3,7 +3,7 @@ package ru.iaulitin.delayed.queue.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import ru.iaulitin.delayed.queue.processor.core.DelayedTask;
+import ru.iaulitin.delayed.queue.core.DelayedTask;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
