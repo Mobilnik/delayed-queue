@@ -1,21 +1,31 @@
 package ru.iaulitin.delayed.queue.processor.core;
 
 
-import java.util.concurrent.Delayed;
+import ru.iaulitin.delayed.queue.processor.core.executables.ITaskExecutable;
+
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.PriorityBlockingQueue;
 
-public abstract class AbstractQueueManager<T extends Delayed, S extends AbstractTaskExecutable<T>, V extends AbstractTaskExecutable<T>> {
+public abstract class AbstractQueueManager<T extends DelayedTask> {
 
-    protected static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(10);
+
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(10);
+    private final BlockingQueue<T> queue = new PriorityBlockingQueue<>();
 
 
     public void handle(T t) {
-        EXECUTOR_SERVICE.submit(getProducingTask(t));
-        EXECUTOR_SERVICE.submit(getConsumingTask(t));
+        t.setProducingTaskExecutable(getProducingTaskExecutable());
+        t.setConsumingTaskExecutable(getConsumingTaskExecutable());
+
+        EXECUTOR_SERVICE.submit(new QueueProducingTask<>(queue, t));
+        EXECUTOR_SERVICE.submit(new QueueConsumingTask<>(queue));
     }
 
 
-    protected abstract QueueProducingTask<T, S> getProducingTask(T t);
-    protected abstract QueueConsumingTask<T, V> getConsumingTask(T t);
+    protected abstract ITaskExecutable<T> getProducingTaskExecutable();
+
+
+    protected abstract ITaskExecutable<T> getConsumingTaskExecutable();
 }

@@ -1,10 +1,10 @@
-package ru.iaulitin.delayed.queue.service;
+package ru.iaulitin.delayed.queue.service.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.iaulitin.delayed.queue.processor.core.user.UserQueueManager;
+import ru.iaulitin.delayed.queue.processor.core.impl.user.UserQueueManager;
 import ru.iaulitin.delayed.queue.dao.UserDao;
 import ru.iaulitin.delayed.queue.entity.User;
 
@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
 @Slf4j
 public class UserService {
 
-    private static int usersCount = 0;
+    private static int usersCount = 0;//todo make atomicInteger
 
 
     private final UserDao userDao;

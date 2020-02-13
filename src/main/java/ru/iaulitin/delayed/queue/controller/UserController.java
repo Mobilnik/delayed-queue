@@ -2,7 +2,7 @@ package ru.iaulitin.delayed.queue.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.iaulitin.delayed.queue.service.UserService;
+import ru.iaulitin.delayed.queue.service.user.UserService;
 
 @RestController
 @RequestMapping("users")

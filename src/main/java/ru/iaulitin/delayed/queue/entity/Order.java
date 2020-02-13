@@ -11,20 +11,17 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "ORDERS")
 @Data
 @EqualsAndHashCode
 @ToString
-public class User extends DelayedTask {
+public class Order extends DelayedTask {
 
     @Id
     @Column(name = "ID")
-    @SequenceGenerator(name = "id_generator", sequenceName = "user_id_seq")
+    @SequenceGenerator(name = "id_generator", sequenceName = "order_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
     private long id;
-
-    @Column(name = "NAME")
-    private String name;
 
     @Column(name = "DEACTIVATION_TIME")
     private ZonedDateTime deactivationTime;
@@ -41,9 +38,9 @@ public class User extends DelayedTask {
 
     @Override
     public int compareTo(Delayed user) {
-        if (!(user instanceof User)) {
+        if (!(user instanceof Order)) {
             throw new RuntimeException("Unexpected delayed object:" + user);
         }
-        return this.deactivationTime.compareTo(((User) user).deactivationTime);
+        return this.deactivationTime.compareTo(((Order) user).deactivationTime);
     }
 }

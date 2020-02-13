@@ -1,22 +1,23 @@
-package ru.iaulitin.delayed.queue.service;
+package ru.iaulitin.delayed.queue.service.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.iaulitin.delayed.queue.dao.OrderDao;
 import ru.iaulitin.delayed.queue.dao.UserDao;
+import ru.iaulitin.delayed.queue.entity.Order;
 import ru.iaulitin.delayed.queue.entity.User;
 
 @Service
 @RequiredArgsConstructor
-//fixme hack for opening transactions
-public class UserDeactivationService {
+public class OrderDeactivationService {
 
-    private final UserDao userDao;
+    private final OrderDao orderDao;
 
 
     @Transactional
-    public void deactivate(User user) {
+    public void deactivate(Order user) {
         user.setActive(false);
-        userDao.save(user);
+        orderDao.save(user);
     }
 }
