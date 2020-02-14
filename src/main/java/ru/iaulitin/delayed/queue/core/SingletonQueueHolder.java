@@ -9,7 +9,7 @@ public final class SingletonQueueHolder {
     private static volatile BlockingQueue<DelayedTask> queue;
 
 
-    public static BlockingQueue<DelayedTask> getQueue() {
+    static BlockingQueue<DelayedTask> getQueue() {
         BlockingQueue<DelayedTask> localQueue = queue;
         if (queue == null) {
             synchronized (SingletonQueueHolder.class) {
