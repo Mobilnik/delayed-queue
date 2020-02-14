@@ -25,6 +25,15 @@ class QueueManagerTest {
 
 
     /**
+     * Тест проверяет, что для объекта null ничего не произойдет
+     */
+    @Test
+    void test001_whenObjectIsNull_thenNothing() {
+        dummyClass1QueueManager.handle(null);
+    }
+
+
+    /**
      * Тест проверяет, что для единственного объекта в очереди задача будет выполнена по прошествии таймаута.
      *
      * @throws Exception в случае непредвиденного исключения во время выполнения теста.
@@ -143,7 +152,7 @@ class QueueManagerTest {
      * @throws Exception в случае непредвиденного исключения во время выполнения теста.
      */
     @Test
-    void test013_whenObjectAtFirstPlaceAndDontHaveFreeWorkers_thenDeactivated() throws Exception {
+    void test014_whenObjectAtFirstPlaceAndDontHaveFreeWorkers_thenDeactivated() throws Exception {
         //отключится 3им
         DummyClass1 dummyObject1 = new DummyClass1();
         dummyObject1.setActive(true);

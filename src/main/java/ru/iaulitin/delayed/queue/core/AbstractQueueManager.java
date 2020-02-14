@@ -21,6 +21,10 @@ public abstract class AbstractQueueManager<T extends DelayedTask> {
 
 
     public void handle(T t) {
+        if (t == null) {
+            return;
+        }
+
         t.setProducingTaskExecutable(getProducingTaskExecutable());
         t.setConsumingTaskExecutable(getConsumingTaskExecutable());
 
