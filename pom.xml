@@ -13,8 +13,7 @@
     <version>0.0.1</version>
     <packaging>war</packaging>
     <name>delayed-queue</name>
-    <description>Delayed queue implementation based on the article: https://www.baeldung.com/java-delay-queue
-    </description>
+    <description>Delayed queue implementation</description>
 
     <properties>
         <java.version>1.8</java.version>
