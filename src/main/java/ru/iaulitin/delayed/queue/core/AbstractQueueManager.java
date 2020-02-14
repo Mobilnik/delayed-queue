@@ -6,15 +6,12 @@ import ru.iaulitin.delayed.queue.core.executables.ITaskExecutable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.PriorityBlockingQueue;
 
 public abstract class AbstractQueueManager<T extends DelayedTask> {
 
-
     //todo считывать настройку количества тредов из очереди
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(10);
-    //fixme эту очередь надо делать синглтоном, возможно, доставать из другого класса!!!!
-    private final BlockingQueue<T> queue = new PriorityBlockingQueue<>();
+    private final BlockingQueue<DelayedTask> queue = SingletonQueueHolder.getQueue();
 
 
     public void handle(T t) {
