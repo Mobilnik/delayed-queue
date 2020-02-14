@@ -11,7 +11,9 @@ import java.util.concurrent.PriorityBlockingQueue;
 public abstract class AbstractQueueManager<T extends DelayedTask> {
 
 
+    //todo считывать настройку количества тредов из очереди
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(10);
+    //fixme эту очередь надо делать синглтоном, возможно, доставать из другого класса!!!!
     private final BlockingQueue<T> queue = new PriorityBlockingQueue<>();
 
 
