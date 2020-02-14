@@ -3,6 +3,7 @@ package ru.iaulitin.delayed.queue.core;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import ru.iaulitin.delayed.queue.core.supportive.DummyClass1;
 import ru.iaulitin.delayed.queue.core.supportive.DummyClass1QueueManager;
 import ru.iaulitin.delayed.queue.core.supportive.DummyClass2;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@TestPropertySource("classpath:application-test.properties")
 class QueueManagerTest {
 
 
@@ -133,5 +135,50 @@ class QueueManagerTest {
         assertFalse(dummyObject2.isActive());
     }
 
-    //todo добавить тест, когда не будет свободных воркеров
+
+    /**
+     * Тест проверяет, что при добавлении объекта в очередь на первое место
+     * и при отсутствии свободных обработчиков первая задача будет выполнена по мере освобождения.
+     *
+     * @throws Exception в случае непредвиденного исключения во время выполнения теста.
+     */
+    @Test
+    void test013_whenObjectAtFirstPlaceAndDontHaveFreeWorkers_thenDeactivated() throws Exception {
+        //отключится 3им
+        DummyClass1 dummyObject1 = new DummyClass1();
+        dummyObject1.setActive(true);
+        dummyObject1.setDelayMillis(400L);
+        dummyClass1QueueManager.handle(dummyObject1);
+
+        //отключится 1ым
+        DummyClass1 dummyObject2 = new DummyClass1();
+        dummyObject2.setActive(true);
+        dummyObject2.setDelayMillis(200L);
+        dummyClass1QueueManager.handle(dummyObject2);
+
+        //отключится 2ым
+        DummyClass1 dummyObject3 = new DummyClass1();
+        dummyObject3.setActive(true);
+        dummyObject3.setDelayMillis(100L);
+        dummyClass1QueueManager.handle(dummyObject3);
+
+        assertTrue(dummyObject1.isActive());
+        assertTrue(dummyObject2.isActive());
+        assertTrue(dummyObject3.isActive());
+
+        Thread.sleep(250);
+        assertTrue(dummyObject1.isActive());
+        assertFalse(dummyObject2.isActive());
+        assertTrue(dummyObject3.isActive());
+
+        Thread.sleep(100);
+        assertTrue(dummyObject1.isActive());
+        assertFalse(dummyObject2.isActive());
+        assertFalse(dummyObject3.isActive());
+
+        Thread.sleep(100);
+        assertFalse(dummyObject1.isActive());
+        assertFalse(dummyObject2.isActive());
+        assertFalse(dummyObject3.isActive());
+    }
 }
