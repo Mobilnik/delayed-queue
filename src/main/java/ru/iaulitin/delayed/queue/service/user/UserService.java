@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.iaulitin.delayed.queue.core.impl.user.UserQueueManager;
 import ru.iaulitin.delayed.queue.dao.UserDao;
 import ru.iaulitin.delayed.queue.entity.User;
-import ru.iaulitin.delayed.queue.core.impl.user.UserQueueManager;
 
 import java.time.ZonedDateTime;
 import java.util.concurrent.atomic.AtomicInteger;

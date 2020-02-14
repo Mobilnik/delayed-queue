@@ -2,8 +2,8 @@ package ru.iaulitin.delayed.queue.core.impl.order.executables;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.iaulitin.delayed.queue.entity.Order;
 import ru.iaulitin.delayed.queue.core.executables.ITaskExecutable;
+import ru.iaulitin.delayed.queue.entity.Order;
 import ru.iaulitin.delayed.queue.service.order.OrderDeactivationService;
 
 @RequiredArgsConstructor
