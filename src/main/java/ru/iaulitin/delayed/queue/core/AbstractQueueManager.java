@@ -1,6 +1,7 @@
 package ru.iaulitin.delayed.queue.core;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import ru.iaulitin.delayed.queue.core.executables.ITaskExecutable;
 
 import java.util.concurrent.BlockingQueue;
@@ -9,17 +10,22 @@ import java.util.concurrent.Executors;
 
 public abstract class AbstractQueueManager<T extends DelayedTask> {
 
-    //todo считывать настройку количества тредов из очереди
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(10);
-    private final BlockingQueue<DelayedTask> queue = SingletonQueueHolder.getQueue();
+    private static BlockingQueue<DelayedTask> queue = SingletonQueueHolder.getQueue();
+    private static ExecutorService executorService;
+
+
+    @Value("${queue.manager.threads.count}")
+    public void initExecutorService(int queueManagerThreadsCount) {
+        executorService = Executors.newFixedThreadPool(queueManagerThreadsCount);
+    }
 
 
     public void handle(T t) {
         t.setProducingTaskExecutable(getProducingTaskExecutable());
         t.setConsumingTaskExecutable(getConsumingTaskExecutable());
 
-        EXECUTOR_SERVICE.submit(new QueueProducingTask<>(queue, t));
-        EXECUTOR_SERVICE.submit(new QueueConsumingTask<>(queue));
+        executorService.submit(new QueueProducingTask<>(queue, t));
+        executorService.submit(new QueueConsumingTask<>(queue));
     }
 
 
